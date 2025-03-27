@@ -42,8 +42,8 @@ title: "01. Introducción y Arquitectura de Snowflake"
   - [Tipos de Virtual Warehouse](#tipos-de-virtual-warehouse)
     - [Ejemplo: Crear un warehouse optimizado para Snowpark](#ejemplo-crear-un-warehouse-optimizado-para-snowpark)
   - [Warehouse Size](#warehouse-size)
-    - [Configuración de AUTO_SUSPEND](#configuración-de-auto_suspend)
-    - [Configuración de AUTO_RESUME](#configuración-de-auto_resume)
+    - [Configuración de AUTO\_SUSPEND](#configuración-de-auto_suspend)
+    - [Configuración de AUTO\_RESUME](#configuración-de-auto_resume)
   - [Escalabilidad Automática con Multi-cluster](#escalabilidad-automática-con-multi-cluster)
     - [¿Cómo funciona?](#cómo-funciona)
     - [Ejemplo de creación de un Warehouse con escalabilidad automática:](#ejemplo-de-creación-de-un-warehouse-con-escalabilidad-automática)
@@ -83,6 +83,7 @@ title: "01. Introducción y Arquitectura de Snowflake"
   - [1. Query Result Cache](#1-query-result-cache)
   - [2. Metadata Cache](#2-metadata-cache)
   - [3. Virtual Warehouse Local Disk Cache](#3-virtual-warehouse-local-disk-cache)
+- [Test de Conocimientos](#test-de-conocimientos)
 
 
 ---
@@ -899,5 +900,297 @@ Snowflake implementa diferentes niveles de caché para optimizar el rendimiento 
 - Mejora el rendimiento de las consultas que acceden repetidamente a los mismos datos.
 
 ---
+
+## Test de Conocimientos
+
+
+1. ¿Cuál de las siguientes capas de la arquitectura de Snowflake se encarga del procesamiento de consultas?
+
+- A) Service Layer  
+- B) Compute Layer  
+- C) Storage Layer  
+- D) Security Layer  
+
+<details>
+<summary>Respuesta</summary>
+B) Compute Layer
+</details>
+
+---
+
+2. ¿Qué tipo de cuenta permite compartir datos con una organización que no tiene cuenta propia en Snowflake?
+
+- A) Partner Account  
+- B) Viewer Account  
+- C) Reader Account  
+- D) Shadow Account  
+
+<details>
+<summary>Respuesta</summary>
+C) Reader Account
+</details>
+
+---
+
+3. ¿Qué operaciones requieren un Virtual Warehouse activo? (respuesta múltiple)
+
+- A) SELECT  
+- B) INSERT  
+- C) CREATE DATABASE  
+- D) COPY INTO  
+
+<details>
+<summary>Respuesta</summary>
+A) SELECT  
+B) INSERT  
+D) COPY INTO  
+</details>
+
+---
+
+4. ¿Cuál es la unidad que utiliza Snowflake para facturar el uso de recursos de cómputo?
+
+- A) GB/hora  
+- B) Transacciones  
+- C) Créditos  
+- D) Cores  
+
+<details>
+<summary>Respuesta</summary>
+C) Créditos
+</details>
+
+---
+
+5. ¿Qué componente gestiona la autenticación, optimización de consultas y acceso en Snowflake?
+
+- A) Compute Layer  
+- B) Storage Layer  
+- C) Cloud Services (Service Layer)  
+- D) Query Acceleration  
+
+<details>
+<summary>Respuesta</summary>
+C) Cloud Services (Service Layer)
+</details>
+
+---
+
+6. ¿Cuáles son ventajas de Zero-Copy Cloning? (respuesta múltiple)
+
+- A) Ahorro de almacenamiento  
+- B) Clonado instantáneo  
+- C) Duplicación física de datos  
+- D) Compatible con Time Travel  
+
+<details>
+<summary>Respuesta</summary>
+A) Ahorro de almacenamiento  
+B) Clonado instantáneo  
+D) Compatible con Time Travel  
+</details>
+
+---
+
+7. ¿Qué comando se utiliza para reactivar manualmente un warehouse suspendido?
+
+- A) ENABLE WAREHOUSE  
+- B) RESTART WAREHOUSE  
+- C) ACTIVATE WAREHOUSE  
+- D) ALTER WAREHOUSE ... RESUME  
+
+<details>
+<summary>Respuesta</summary>
+D) ALTER WAREHOUSE ... RESUME
+</details>
+
+---
+
+8. ¿Cuál es el tamaño mínimo de Virtual Warehouse que se puede crear?
+
+- A) XX-Small  
+- B) X-Small  
+- C) Small  
+- D) Tiny  
+
+<details>
+<summary>Respuesta</summary>
+B) X-Small
+</details>
+
+---
+
+9. ¿Qué métodos de compartición de datos ofrece Snowflake? (respuesta múltiple)
+
+- A) Direct Data Sharing  
+- B) Snowpipe  
+- C) Snowflake Marketplace  
+- D) Cross-Cloud Sharing  
+
+<details>
+<summary>Respuesta</summary>
+A) Direct Data Sharing  
+C) Snowflake Marketplace  
+D) Cross-Cloud Sharing  
+</details>
+
+---
+
+10. ¿Qué tipo de caché almacena información sobre objetos como tablas y esquemas?
+
+- A) Query Result Cache  
+- B) Metadata Cache  
+- C) Virtual Warehouse Local Disk Cache  
+- D) Storage Cache  
+
+<details>
+<summary>Respuesta</summary>
+B) Metadata Cache
+</details>
+
+---
+
+11. ¿Qué política de escalado prioriza el ahorro de costos?
+
+- A) STANDARD  
+- B) MAXIMUM  
+- C) ECONOMY  
+- D) BALANCED  
+
+<details>
+<summary>Respuesta</summary>
+C) ECONOMY
+</details>
+
+---
+
+12. ¿Qué comandos permiten restaurar datos usando Time Travel? (respuesta múltiple)
+
+- A) AT (TIMESTAMP => ...)  
+- B) BEFORE (STATEMENT => ...)  
+- C) RESTORE TABLE ...  
+- D) AT (OFFSET => ...)  
+
+<details>
+<summary>Respuesta</summary>
+A) AT (TIMESTAMP => ...)  
+B) BEFORE (STATEMENT => ...)  
+D) AT (OFFSET => ...)  
+</details>
+
+---
+
+13. ¿Qué capa de Snowflake implementa el pruning inteligente?
+
+- A) Compute Layer  
+- B) Metadata Layer  
+- C) Storage Layer  
+- D) Query Layer  
+
+<details>
+<summary>Respuesta</summary>
+C) Storage Layer
+</details>
+
+---
+
+14. ¿Cuál de los siguientes componentes NO se ve afectado por operaciones DML?
+
+- A) Virtual Warehouse Cache  
+- B) Query Result Cache  
+- C) Metadata Cache  
+- D) Result Set  
+
+<details>
+<summary>Respuesta</summary>
+C) Metadata Cache
+</details>
+
+---
+
+15. ¿Cuál es el propósito del comando `GRANT IMPORTED PRIVILEGES ON DATABASE`?
+
+- A) Importar datos de otro warehouse  
+- B) Permitir acceso a una base de datos creada desde un share  
+- C) Importar archivos desde S3  
+- D) Otorgar privilegios para clonar tablas  
+
+<details>
+<summary>Respuesta</summary>
+B) Permitir acceso a una base de datos creada desde un share
+</details>
+
+---
+
+16. ¿Qué beneficios tiene la arquitectura multi-cluster? (respuesta múltiple)
+
+- A) Alta concurrencia  
+- B) Procesamiento de datos en streaming  
+- C) Escalabilidad automática  
+- D) Requiere configuración compleja de hardware  
+
+<details>
+<summary>Respuesta</summary>
+A) Alta concurrencia  
+C) Escalabilidad automática  
+</details>
+
+---
+
+17. ¿Cuánto tiempo permanece disponible un resultado en el Query Result Cache si los datos no cambian?
+
+- A) 1 hora  
+- B) 12 horas  
+- C) 24 horas  
+- D) 7 días  
+
+<details>
+<summary>Respuesta</summary>
+C) 24 horas
+</details>
+
+---
+
+18. ¿Qué elementos consumen créditos en Snowflake?
+
+- A) Consultas sobre Metadata Cache  
+- B) Time Travel sobre vistas  
+- C) Warehouses activos  
+- D) Consulta desde Result Cache  
+
+<details>
+<summary>Respuesta</summary>
+C) Warehouses activos
+</details>
+
+---
+
+19. ¿Cuáles son componentes de la arquitectura de tres capas de Snowflake? (respuesta múltiple)
+
+- A) Application Layer  
+- B) Cloud Services  
+- C) Query Processing  
+- D) Database Storage  
+
+<details>
+<summary>Respuesta</summary>
+B) Cloud Services  
+C) Query Processing  
+D) Database Storage  
+</details>
+
+---
+
+20. ¿Qué comando permite crear un clon de una tabla usando Time Travel?
+
+- A) COPY INTO  
+- B) CLONE  
+- C) BACKUP  
+- D) CREATE DUPLICATE  
+
+<details>
+<summary>Respuesta</summary>
+B) CLONE
+</details>
 
 
