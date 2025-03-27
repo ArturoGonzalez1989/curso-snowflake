@@ -1,8 +1,9 @@
 # Caso Práctico: Creación y uso de Shares en Snowflake
 
-Este caso práctico servirá de refuerzo de los conocimientos aprendidos en el documento:
- 📄 **[Introducción y Arquitectura de Snowflake](01_introduccion_snowflake.md)**
+Este caso práctico servirá de refuerzo de los conocimientos aprendidos en el documento:  
+📄 **[Introducción y Arquitectura de Snowflake](01_introduccion_snowflake.md)**  
 Ante cualquier duda que se pueda tener acerca de los conceptos adquiridos, se recomienda revisar nuevamente el documento y su sección correspondiente.
+
 
 
 ## Objetivo del caso práctico
@@ -17,7 +18,19 @@ Ante cualquier duda que se pueda tener acerca de los conceptos adquiridos, se re
 
 ### Paso 1: Creación de objetos iniciales en Snowflake
 
-Crear las bases de datos `sales`, `marketing` y `sharedb`, cada una con sus respectivos esquemas y tablas.
+Desde el rol `SYSADMIN`, crea tres bases de datos: `sales`, `marketing` y `sharedb`.  
+En cada una de ellas, crea un esquema llamado `my_schema` (o `shares` en el caso de `sharedb`) y las siguientes tablas:
+
+- En `sales.my_schema`, crea una tabla `customer` con los campos:  
+  - `customer_id` (INT)  
+  - `customer_name` (STRING)
+
+- En `marketing.my_schema`, crea una tabla `conversions` con los campos:  
+  - `customer_id` (INT)  
+  - `campaign` (STRING)  
+  - `converted` (BOOLEAN)
+
+- En `sharedb`, crea un esquema llamado `shares` (no se requiere tabla por ahora).
 
 <details><summary>Mostrar solución</summary>
 
@@ -49,7 +62,8 @@ CREATE SCHEMA sharedb.shares;
 
 ### Paso 2: Crear una vista segura para compartir
 
-Combinar datos de las tablas de clientes y conversiones solo donde haya conversión exitosa.
+Crea una vista segura (`SECURE VIEW`) en `sharedb.shares` llamada `sharedview`.  
+La vista debe combinar datos de clientes y conversiones, mostrando únicamente aquellos clientes que hayan convertido (`converted = TRUE`).
 
 <details><summary>Mostrar solución</summary>
 
@@ -72,7 +86,7 @@ WHERE converted;
 
 ### Paso 3: Crear el Data Share
 
-Crear un objeto `SHARE` desde la cuenta proveedora.
+Desde el rol `ACCOUNTADMIN`, crea un objeto `SHARE` llamado `myshare`.
 
 <details><summary>Mostrar solución</summary>
 
@@ -88,7 +102,11 @@ CREATE SHARE myshare;
 
 ### Paso 4: Otorgar permisos al Share
 
-Conceder a `myshare` los permisos necesarios sobre bases de datos, esquemas y vistas.
+Desde el rol `SECURITYADMIN`, otorga los siguientes permisos al objeto `SHARE` creado:
+
+- `USAGE` sobre la base de datos `sharedb` y su esquema `shares`.
+- `REFERENCE_USAGE` sobre las bases de datos `sales` y `marketing`.
+- `SELECT` sobre la vista `sharedb.shares.sharedview`.
 
 <details><summary>Mostrar solución</summary>
 
@@ -110,7 +128,8 @@ GRANT SELECT ON VIEW sharedb.shares.sharedview TO SHARE myshare;
 
 ### Paso 5: Añadir una cuenta consumidora al Share
 
-Agregar una cuenta externa identificada por su organización y cuenta.
+Desde `ACCOUNTADMIN`, añade una cuenta externa al Share.  
+(Sustituye `DROWAQJ.YJ40678` por el ID real si fuera necesario).
 
 <details><summary>Mostrar solución</summary>
 
@@ -128,7 +147,8 @@ SHOW GRANTS OF SHARE myshare;
 
 ### Paso 6: Configuración del consumidor del Data Share
 
-Simular el acceso desde una cuenta consumidora para visualizar y consultar datos.
+Simula la configuración en la cuenta consumidora.  
+Utiliza `DESC SHARE` para ver los detalles del Share, crea una base de datos a partir de él y otorga los permisos necesarios para acceder a los datos.
 
 <details><summary>Mostrar solución</summary>
 
@@ -150,7 +170,8 @@ SELECT * FROM UR83766_SHARE.SHARES.SHAREDVIEW;
 
 ### Paso 7: Crear un Reader Account para empresas externas
 
-Crear una cuenta administrada tipo lector (Reader Account) y añadirla al Share.
+Desde `ACCOUNTADMIN`, crea una cuenta Reader para una empresa que no dispone de cuenta en Snowflake.  
+A continuación, añade dicha cuenta al Share.
 
 <details><summary>Mostrar solución</summary>
 
@@ -175,7 +196,8 @@ ALTER SHARE myshare ADD ACCOUNTS=RE47190;
 
 ### Paso 8: Validación del Data Share
 
-Validar el contenido visible desde la cuenta proveedora y simular consulta del consumidor.
+Valida que los datos sean accesibles tanto desde el proveedor como desde un consumidor simulado.  
+(En este paso se utiliza la opción `SIMULATED_DATA_SHARING_CONSUMER`).
 
 <details><summary>Mostrar solución</summary>
 
@@ -195,7 +217,7 @@ SELECT TOP 10 * FROM sharedb.shares.sharedview;
 
 ### Paso 9: Monitoreo y auditoría del Share
 
-Auditar permisos y uso del objeto Share.
+Consulta los permisos y el estado actual del objeto `SHARE`.
 
 <details><summary>Mostrar solución</summary>
 
@@ -211,7 +233,8 @@ SHOW GRANTS OF SHARE myshare;
 
 ### Paso 10: Añadir y remover objetos del Share
 
-Agregar una nueva vista al Share y eliminar otra si ya no es necesaria.
+Crea una nueva vista a partir de una tabla clonada y agrégala al Share.  
+Luego, elimina del Share una vista que ya no sea necesaria (`campaigns`, por ejemplo).
 
 <details><summary>Mostrar solución</summary>
 
@@ -229,4 +252,3 @@ REVOKE SELECT ON VIEW sharedb.shares.campaigns FROM SHARE myshare;
 ```
 
 </details>
-
