@@ -133,8 +133,8 @@ import matplotlib.pyplot as plt
 connection_parameters = {
     "account": "account",  # Nombre de la cuenta en Snowflake
     "user": "user",  # Usuario de Snowflake
-    "password": "account",  # Contraseña (¡Nunca expongas credenciales en código real!)
-    "warehouse": "COMPUTE_WH"  # Almacén de cómputo para ejecutar consultas
+    "password": "account",  # Contraseña
+    "warehouse": "COMPUTE_WH"  # WH para ejecutar consultas
 }
 
 # Crear sesión en Snowflake para interactuar con la base de datos
@@ -205,16 +205,13 @@ session.close()
 
 Con estos pasos, ahora puedes:
 
-✅ **Conectar Snowflake con VS Code** mediante la extensión oficial.  
-✅ **Ejecutar consultas SQL** directamente desde el editor.  
-✅ **Configurar Python** e instalar librerías necesarias.  
-✅ **Ejecutar código en Snowflake** usando `snowflake-snowpark-python`.  
-✅ **Realizar análisis y visualización de datos** en **pandas**, **Altair** y **Matplotlib**.
+- **Conectar Snowflake con VS Code** mediante la extensión oficial.  
+- **Ejecutar consultas SQL** directamente desde el editor.  
+- **Configurar Python** e instalar librerías necesarias.  
+- **Ejecutar código en Snowflake** usando `snowflake-snowpark-python`.  
+- **Realizar análisis y visualización de datos** en **pandas**, **Altair** y **Matplotlib**.
 
 Si encuentras errores, revisa:
 - La conexión a Snowflake (credenciales y permisos).
 - La instalación de dependencias (`pip list` para ver librerías instaladas).
 - Que tienes Python actualizado (`python --version`).
-
-**¡Listo para trabajar con Snowflake desde VS Code y Python!**
-
