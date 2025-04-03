@@ -114,13 +114,12 @@ pip install --upgrade pandas pyarrow numpy
 
 ### Requisitos Previos
 
-1. Copia el contenido del archivo **"1.3. Ejecución de código desde VS.txt"**.
-2. Pega el contenido en un nuevo archivo con extensión `.py`.
-3. Guarda el archivo y ejecútalo desde la terminal de **VS Code**.
+1. Pega el código que verás a continuación en un nuevo archivo con extensión `.py`.
+3. Guarda el archivo y ejecútalo desde la terminal de **VS Code** o haciendo clic en el botón de **Ejecutar consulta** (`▶`)..
 
 ---
 
-### Código de Ejemplo en Python para Snowflake
+### Código de Ejemplo en Python para Snowflake: Análisis de distribución de precios
 
 ```python
 import snowflake.snowpark as snowpark
@@ -198,6 +197,90 @@ plt.show()
 session.close()
 
 ```
+
+### Código de Ejemplo en Python para Snowflake: Análisis de distribución balances de cuentas
+
+```python
+
+# Importar librerías necesarias
+import snowflake.snowpark as snowpark
+import pandas as pd
+import numpy as np
+import altair as alt
+import matplotlib.pyplot as plt
+
+# Parámetros de conexión a Snowflake (usa credenciales propias en un entorno seguro)
+connection_parameters = {
+    "account": "account",  # Nombre de la cuenta en Snowflake
+    "user": "user",  # Usuario de Snowflake
+    "password": "account",  # Contraseña
+    "warehouse": "COMPUTE_WH"  # WH para ejecutar consultas
+}
+
+# Crear sesión en Snowflake para interactuar con la base de datos
+session = snowpark.Session.builder.configs(connection_parameters).create()
+
+# Crear tabla temporal con datos de proveedores incluyendo el nombre de la nación
+query = """
+CREATE OR REPLACE TEMP TABLE SUPPLIER_DATA_TEMP AS
+SELECT S.S_SUPPKEY, 
+       S.S_NAME, 
+       N.N_NAME AS NATION_NAME, 
+       S.S_ACCTBAL
+FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF10.SUPPLIER S
+JOIN SNOWFLAKE_SAMPLE_DATA.TPCH_SF10.NATION N
+ON S.S_NATIONKEY = N.N_NATIONKEY;
+"""
+
+# Ejecutar la consulta
+session.sql(query).collect()
+
+# Consultar los datos generados y convertirlos a DataFrame de Pandas
+df = session.sql("SELECT * FROM SUPPLIER_DATA_TEMP").to_pandas()
+
+# Mostrar primeras filas
+print("Primeras filas del DataFrame:")
+print(df.head())
+
+# Análisis exploratorio
+print("\nBalance promedio por país:")
+print(df.groupby("NATION_NAME")["S_ACCTBAL"].mean())
+
+print("\nProveedor con el mayor balance:")
+print(df.loc[df["S_ACCTBAL"].idxmax()])
+
+print("\nNúmero de proveedores con balance mayor a 5000:")
+print(len(df[df["S_ACCTBAL"] > 5000]))
+
+# Visualización con Altair - Distribución de balances
+chart = alt.Chart(df, title="Distribución de Balances de Cuenta").mark_bar().encode(
+    alt.X("S_ACCTBAL", bin=alt.Bin(step=1000)),  # Agrupa balances en intervalos de 1000
+    y='count()'
+)
+
+# Guardar gráfico en archivo HTML para visualización en navegador
+chart.save("distribucion_balances.html")
+
+# Visualización con Matplotlib - Histograma y Curva de Densidad
+fig, ax = plt.subplots(figsize=(6, 3))
+df["S_ACCTBAL"].plot(kind="hist", density=True, bins=15, alpha=0.6, ax=ax)
+df["S_ACCTBAL"].plot(kind="kde", color='#c44e52', ax=ax)
+plt.title("Distribución de Balances de Cuenta")
+plt.xlabel("Balance de Cuenta")
+plt.ylabel("Densidad")
+plt.grid(True)
+
+# Guardar el gráfico en un archivo
+plt.savefig("distribucion_balances.png")
+
+# Mostrar el gráfico
+plt.show()
+
+# Cerrar sesión en Snowflake
+session.close()
+
+```
+
 
 ---
 
