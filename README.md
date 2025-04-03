@@ -60,20 +60,8 @@ CURSO-SNOWFLAKE/
 1. **Clona este repositorio** o descárgalo como ZIP.
 2. Sigue los contenidos por orden: desde `01_introduccion_snowflake` hasta los casos avanzados.
 3. Utiliza los archivos `.md` como guía y los datasets disponibles para practicar.
-4. Prueba los ejemplos en tu cuenta de Snowflake (Snowsight o SQL Editor).
+4. Prueba los ejemplos en tu cuenta de Snowflake (Snowsight o VS Code).
 5. Consulta las soluciones si necesitas apoyo.
-
----
-
-## Sugerencia de progreso
-
-| Semana | Unidad | Tema principal |
-|--------|--------|----------------|
-| 1 | 01 | Introducción, conexión y uso básico |
-| 2 | 02 | Tablas, vistas, stages, `COPY INTO` |
-| 3 | 03 | Roles, permisos, objetos programables |
-| 4 | 04 | Automatización con Streams, Tasks y Pipes |
-| 5 | 05 | Time Travel, seguridad y buenas prácticas |
 
 ---
 
