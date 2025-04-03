@@ -11,7 +11,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 3. Escribir el nombre de la base de datos en el campo **"Name"** (opcionalmente, añadir un comentario).
 4. Hacer clic en **"Create"** para finalizar.
 
-![Crear base de datos](./resources/Imagen4.png)
+![Crear base de datos](./01_introduccion_snowflake/resources/Imagen4.png)
 
 
 ---
@@ -23,7 +23,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 3. Escribir el nombre del esquema en el campo **"Name"** (opcionalmente, añadir un comentario).
 4. Hacer clic en **"Create"** para finalizar.
 
-![Crear esquema](./resources/Imagen5.png)
+![Crear esquema](./01_introduccion_snowflake/resources/Imagen5.png)
 
 ---
 
@@ -34,7 +34,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 3. En el menú desplegable, seleccionar **"Stage" → "Snowflake Managed"**.
 4. Completar los detalles y confirmar con **"Create"**.
 
-![Crear Stage](./resources/Imagen6.png)
+![Crear Stage](./01_introduccion_snowflake/resources/Imagen6.png)
 
 ---
 
@@ -45,7 +45,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 3. Elegir **"Client-side encryption"** o la opción preferida.
 4. Hacer clic en **"Create"** para finalizar.
 
-![Configurar Stage](./resources/Imagen7.png)
+![Configurar Stage](./01_introduccion_snowflake/resources/Imagen7.png)
 
 ---
 
@@ -57,7 +57,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 4. (Opcional) Especificar un directorio dentro del Stage.
 5. Hacer clic en **"Upload"** para finalizar.
 
-![Subir CSV](./resources/Imagen8.png)
+![Subir CSV](./01_introduccion_snowflake/resources/Imagen8.png)
 
 ---
 
@@ -68,7 +68,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 3. Hacer clic en el menú de **tres puntos** junto al archivo.
 4. Seleccionar **"Load into table"** para iniciar la carga en Snowflake.
 
-![Verificar archivos](./resources/Imagen9.png)
+![Verificar archivos](./01_introduccion_snowflake/resources/Imagen9.png)
 
 ---
 
@@ -80,7 +80,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 4. Definir el nombre de la tabla, por ejemplo: `NETFLIX_TITLES`.
 5. Hacer clic en **"Next"** para continuar.
 
-![Configurar carga](./resources/Imagen10.png)
+![Configurar carga](./01_introduccion_snowflake/resources/Imagen10.png)
 
 ---
 
@@ -92,7 +92,7 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 4. Resolver errores por caracteres inválidos (ejemplo: separadores de miles en números).
 5. Hacer clic en **"Load"** para cargar los datos.
 
-![Ajustar configuración](./resources/Imagen11.png)
+![Ajustar configuración](./01_introduccion_snowflake/resources/Imagen11.png)
 
 ---
 
@@ -100,13 +100,13 @@ Este tutorial describe paso a paso cómo cargar un archivo CSV en Snowflake util
 
 1. Aparecerá un mensaje de carga exitosa.
 
-![Verificar carga](./resources/Imagen12.png)
+![Verificar carga](./01_introduccion_snowflake/resources/Imagen12.png)
 
 2. Opción de visualizar datos cargados con **"Query data"**.
 3. Snowflake generará automáticamente una consulta SQL de ejemplo.
 4. Ejecutar la consulta para verificar los datos.
 
-![.](./resources/Imagen13.png)
+![.](./01_introduccion_snowflake/resources/Imagen13.png)
 
 ---
 
